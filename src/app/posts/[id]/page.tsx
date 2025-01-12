@@ -2,7 +2,6 @@
 import React from "react";
 import CommentSection from "@/components/CommentSection";
 import AuthorCard from "@/components/AuthorCard";
-import { title } from "process";
 import Footer from "@/components/Footer";
 
 const posts = [
@@ -31,14 +30,14 @@ const posts = [
     id: "4",
     title: "HWhat is NextJs",
     description:
-      "Next.js is a React-based framework that simplifies building modern web applications by offering server-side rendering (SSR), static site generation (SSG), and other advanced features out of the box. It is developed and maintained by Vercel. Key Features: 1. Server-Side Rendering (SSR): Automatically renders pages on the server before sending them to the browser, improving SEO and performance. 2. Static Site Generation (SSG): Allows pre-rendering pages at build time, delivering fast and optimized pages. 3. API Routes: Enables developers to build backend APIs directly within the Next.js application. 4. Routing System: Offers a file-based routing system, where files in the pages/ folder automatically become routes. 5. Image Optimization: Provides built-in support for image optimization with features like lazy loading and resizing. 6. Incremental Static Regeneration (ISR): Updates specific static pages after deployment without rebuilding the entire site.",
+      "Next.js is a React-based framework that simplifies building modern web applications by offering server-side rendering (SSR), static site generation (SSG), and other advanced features out of the box. It is developed and maintained by Vercel. Key Features: 1. Server-Side Rendering (SSR): Automatically renders pages on the server before sending them to the browser, improving SEO and performance. 2. Static Site Generation (SSG): Allows pre-rendering pages at build time, delivering fast and optimized pages. 3. API Routes: Enables developers to build backend APIs directly within the Next.js application. 4. Routing System: Offers a file-based routing system, where files in the pages/ folder automatically become routes. 5. Image Optimization: Provides built-in support for image optimization with features like lazy loading and resizing. 6. Incremental Static Regeneration (ISR): Updates specific static pages after deployment without rebuilding the entire site.",
     image: "../images/NJ PIC.png",
   },
   {
     id: "5",
     title: "What is Python",
     description:
-      "EPython is a popular, high-level, interpreted programming language known for its simplicity, readability, and versatility. It was created by Guido van Rossum and first released in 1991. Python is widely used for web development, data analysis, artificial intelligence, scientific computing, automation, and more. Key Features of Python: Python's syntax is straightforward and similar to plain English, making it easy to learn and use. 2. Dynamically Typed: You don’t need to declare variable types; Python determines the type at runtime. 3. Interpreted Language: Python code is executed line by line, which makes debugging easier",
+      "EPython is a popular, high-level, interpreted programming language known for its simplicity, readability, and versatility. It was created by Guido van Rossum and first released in 1991. Python is widely used for web development, data analysis, artificial intelligence, scientific computing, automation, and more. Key Features of Python: Python's syntax is straightforward and similar to plain English, making it easy to learn and use. 2. Dynamically Typed: You don’t need to declare variable types; Python determines the type at runtime. 3. Interpreted Language: Python code is executed line by line, which makes debugging easier",
     image: "../images/PT.png",
   },
   {
@@ -50,7 +49,7 @@ const posts = [
   },
 ];
 
-export default function Post({ params }: { params: {id: string}}) {
+export default function Post({ params }: { params: { id: string } }) {
   const { id } = params;
   const post = posts.find((p) => p.id === id);
 
@@ -61,12 +60,13 @@ export default function Post({ params }: { params: {id: string}}) {
   }
 
   const renderParagraphs = (description: string) => {
-    return description.split("/n").map((para, index) => (
+    return description.split("\n").map((para, index) => (
       <p key={index} className="mt-4 text-justify">
         {para.trim()}
       </p>
     ));
   };
+
   return (
     <div className="max-w-3xl mx-auto p-5">
       <h1 className="md:text-4xl text-3xl font-bold text-red-600 text-center">
