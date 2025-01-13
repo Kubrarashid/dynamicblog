@@ -2,34 +2,33 @@ import React, { useState } from "react";
 import { Card, CardContent } from "../components/ui/card";
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
-import { comment } from "postcss";
 
 interface Comment {
   id: string;
-  auther: string;
+  author: string;
   text: string;
 }
 
 interface CommentSectionProps {
-  postId: string;
+  postId: string; // Remove this if it's not used
 }
 
 export default function CommentSection({ postId }: CommentSectionProps) {
   const [comments, setComments] = useState<Comment[]>([]);
-  const [autherName, setAutherName] = useState("");
+  const [authorName, setAuthorName] = useState("");
   const [newComment, setNewComment] = useState("");
   const [editingCommentId, setEditingCommentId] = useState<string | null>(null);
 
-  const handleAddCommment = () => {
-    if (newComment.trim() && autherName.trim()) {
+  const handleAddComment = () => {
+    if (newComment.trim() && authorName.trim()) {
       const newCommentObj: Comment = {
         id: new Date().toISOString(),
-        auther: autherName,
+        author: authorName,
         text: newComment,
       };
       setComments([...comments, newCommentObj]);
       setNewComment("");
-      setAutherName("");
+      setAuthorName("");
     }
   };
 
@@ -37,21 +36,21 @@ export default function CommentSection({ postId }: CommentSectionProps) {
     const commentToEdit = comments.find((comment) => comment.id === commentID);
     if (commentToEdit) {
       setNewComment(commentToEdit.text);
-      setAutherName(commentToEdit.auther);
+      setAuthorName(commentToEdit.author);
       setEditingCommentId(commentID);
     }
   };
 
   const handleSaveEditedComment = () => {
-    if (newComment.trim() && autherName.trim() && editingCommentId) {
-      const updatedComments = comments.map((comments) =>
-        comments.id === editingCommentId
-          ? { ...comments, text: newComment, autherName }
-          : comments
+    if (newComment.trim() && authorName.trim() && editingCommentId) {
+      const updatedComments = comments.map((comment) =>
+        comment.id === editingCommentId
+          ? { ...comment, text: newComment, author: authorName }
+          : comment
       );
       setComments(updatedComments);
       setNewComment("");
-      setAutherName("");
+      setAuthorName("");
       setEditingCommentId(null);
     }
   };
@@ -64,27 +63,27 @@ export default function CommentSection({ postId }: CommentSectionProps) {
           comments.map((comment) => (
             <Card key={comment.id}>
               <CardContent className="p-4">
-                <div className="font-semibold"> {comment.auther}</div>
+                <div className="font-semibold">{comment.author}</div>
                 <p>{comment.text}</p>
                 <Button
                   onClick={() => handleEditComment(comment.id)}
                   className="mt-2 text-blue-500"
                 >
-                  Eidt
+                  Edit
                 </Button>
               </CardContent>
             </Card>
           ))
         ) : (
-          <p className="text-slate-400"> No comment yet</p>
+          <p className="text-slate-400">No comments yet</p>
         )}
       </div>
 
       <div className="mt-6">
         <Input
           type="text"
-          value={autherName}
-          onChange={(e) => setAutherName(e.target.value)}
+          value={authorName}
+          onChange={(e) => setAuthorName(e.target.value)}
           placeholder="Your name"
           className="w-full mb-2"
         />
@@ -97,9 +96,10 @@ export default function CommentSection({ postId }: CommentSectionProps) {
           className="w-full mb-2"
         />
         <Button
-        onClick={editingCommentId ? handleSaveEditedComment : handleAddCommment}
-        className="mt-4">
-          {editingCommentId ? 'Save' : 'Submit'}
+          onClick={editingCommentId ? handleSaveEditedComment : handleAddComment}
+          className="mt-4"
+        >
+          {editingCommentId ? "Save" : "Submit"}
         </Button>
       </div>
     </div>
