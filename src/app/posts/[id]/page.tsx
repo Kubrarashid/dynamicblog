@@ -82,7 +82,7 @@ export default function Post({ params }: { params: { id: string } }) {
       <div className="mt-6 text-lg text-slate-700">
         {renderParagraphs(post.description)}
       </div>
-      <CommentSection postId={post.id} />
+      <CommentSection postId={""} />
       <AuthorCard />
       <Footer />
     </div>
